@@ -1,0 +1,86 @@
+import random
+import time
+
+results = [("rock", "scissors"), ("scissors", "paper"), ("paper", "rock"), ("rock", "lizard"), ("lizard", "spock"),
+           ("spock", "scissors"), ("scissors", "lizard"), ("lizard", "paper"), ("paper", "spock"), ("spock", "rock")]
+moves = [result[1] for result in results]
+
+player_score, computer_score, ai1_score, ai2_score = (0, 0, 0, 0)
+rounds_played, tied_games = (0, 0)
+
+print("Hello user and welcome to the game of rock, paper, scissors, lizard, spock""\n")
+rules = input("Would you like to know the rules of the game(yes/no): ").lower().strip()
+if rules == "yes":
+    print("Loading rules...")
+    time.sleep(2.5)
+    print("\n""Scissors cuts Paper, Paper covers Rock, Rock crushes Lizard, Lizard poisons Spock,"
+          "\n""Spock smashes Scissors, Scissors decapitates Lizard, Lizard eats Paper, Paper disproves Spock,"
+          "\n""Spock vaporizes Rock, (and as it always has) Rock crushes Scissors  ")
+
+
+while True:
+    choice = input("\n""Would you like to play against a computer or simulate a battle between two bots?(play/sim): ")\
+                                                                                                        .lower().strip()
+    if choice == "sim":
+        ai1_name = input("Give the first AI a name: ")
+        ai2_name = input("Give the second AI a name: ")
+        num_of_rounds = int(input("How many rounds do you want the computer to play: "))
+        while True:
+            ai1 = random.choice(moves)
+            ai2 = random.choice(moves)
+            # print("You chose {} and the computer chose {}".format(player, computer))
+            if rounds_played == num_of_rounds:
+                print("\n""Simulating battle...")
+                time.sleep(3)
+                print("\n""Final score""\n""{} : {}""\n""{} : {}""\n""Tied games: {}".format(ai1_name, ai1_score,
+                ai2_name, ai2_score, tied_games))
+                if ai1_score == ai2_score:
+                    print("What are the chances? It's a tie")
+                    break
+                elif ai1_score > ai2_score:
+                    print("Game over, {} wins".format(ai1_name))
+                    break
+                else:
+                    print("Game over, {} wins".format(ai2_name))
+                    break
+            elif ai1 == ai2:
+                rounds_played += 1
+                tied_games += 1
+            elif (ai1, ai2) in results:
+                ai1_score += 1
+                rounds_played += 1
+            elif (ai2, ai1) in results:
+                ai2_score += 1
+                rounds_played += 1
+
+        break
+
+    elif choice == "play":
+        player = input("Enter rock, paper, scissors, lizard, spock or quit to end the game: ").lower().strip()
+        while player != "quit":
+            computer = random.choice(moves)
+            print("\n""Computer chose {}".format(computer))
+            if player == computer:
+                print("It's a tie")
+                tied_games += 1
+            elif (player, computer) in results:
+                print("You win")
+                player_score += 1
+            elif (computer, player) in results:
+                print("Computer wins")
+                computer_score += 1
+            else:
+                print("You entered '{}', please enter valid options only""\n".format(player))
+
+            player = input("Enter rock, paper, scissors, lizard, spock or quit to end the game: ").lower().strip()
+
+        print("FINAL SCORE : ""\n""YOU : {}""\n""COMPUTER : {}""\n""TIED GAMES : {}".format(player_score,
+                                                                                        computer_score, tied_games))
+        if player_score == computer_score:
+            print("The game ended in a tie")
+        elif player_score > computer_score:
+            print("Good job human, you win")
+        else:
+            print("The AI will rule the world, it's inevitable")
+        print("Game over")
+        break
