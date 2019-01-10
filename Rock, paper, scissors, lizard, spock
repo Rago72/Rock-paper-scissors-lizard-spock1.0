@@ -59,22 +59,21 @@ while True:
         player = input("Enter rock, paper, scissors, lizard, spock or quit to end the game: ").lower().strip()
         while player != "quit":
             computer = random.choice(moves)
-            print("\n""Computer chose {}".format(computer))
             if player == computer:
-                print("It's a tie")
+                print("\n""It's a tie")
                 tied_games += 1
             elif (player, computer) in results:
-                print("You win")
+                print("\n""You chose {}, computer chose {},""\n""You win".format(player, computer))
                 player_score += 1
             elif (computer, player) in results:
-                print("Computer wins")
+                print("\n""You chose {}, computer chose {},""\n""Computer wins".format(player, computer))
                 computer_score += 1
             else:
-                print("You entered '{}', please enter valid options only""\n".format(player))
+                print("\n""You entered '{}', please enter valid options only""\n".format(player))
 
             player = input("Enter rock, paper, scissors, lizard, spock or quit to end the game: ").lower().strip()
 
-        print("FINAL SCORE : ""\n""YOU : {}""\n""COMPUTER : {}""\n""TIED GAMES : {}".format(player_score,
+        print("\n""FINAL SCORE : ""\n""YOU : {}""\n""COMPUTER : {}""\n""TIED GAMES : {}".format(player_score,
                                                                                         computer_score, tied_games))
         if player_score == computer_score:
             print("The game ended in a tie")
