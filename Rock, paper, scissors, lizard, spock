@@ -3,7 +3,8 @@ import time
 
 results = [("rock", "scissors"), ("scissors", "paper"), ("paper", "rock"), ("rock", "lizard"), ("lizard", "spock"),
            ("spock", "scissors"), ("scissors", "lizard"), ("lizard", "paper"), ("paper", "spock"), ("spock", "rock")]
-moves = [result[1] for result in results]
+# moves = [result[1] for result in results]
+moves = ["rock", "lizard", "paper", "spock", "scissors"]
 
 player_score, computer_score, ai1_score, ai2_score = (0, 0, 0, 0)
 rounds_played, tied_games = (0, 0)
@@ -12,14 +13,14 @@ print("Hello user and welcome to the game of rock, paper, scissors, lizard, spoc
 rules = input("Would you like to know the rules of the game(yes/no): ").lower().strip()
 if rules == "yes":
     print("Loading rules...")
-    time.sleep(2.5)
-    print("\n""Scissors cuts Paper, Paper covers Rock, Rock crushes Lizard, Lizard poisons Spock,"
-          "\n""Spock smashes Scissors, Scissors decapitates Lizard, Lizard eats Paper, Paper disproves Spock,"
-          "\n""Spock vaporizes Rock, (and as it always has) Rock crushes Scissors  ")
+    time.sleep(1.5)
+    print("\nScissors cuts Paper, Paper covers Rock, Rock crushes Lizard, Lizard poisons Spock,"
+          "\nSpock smashes Scissors, Scissors decapitates Lizard, Lizard eats Paper, Paper disproves Spock,"
+          "\nSpock vaporizes Rock, (and as it always has) Rock crushes Scissors  ")
 
 
 while True:
-    choice = input("\n""Would you like to play against a computer or simulate a battle between two bots?(play/sim): ")\
+    choice = input("\nWould you like to play against a computer or simulate a battle between two bots?(play/sim): ")\
                                                                                                         .lower().strip()
     if choice == "sim":
         ai1_name = input("Give the first AI a name: ")
@@ -28,12 +29,11 @@ while True:
         while True:
             ai1 = random.choice(moves)
             ai2 = random.choice(moves)
-            # print("You chose {} and the computer chose {}".format(player, computer))
             if rounds_played == num_of_rounds:
-                print("\n""Simulating battle...")
-                time.sleep(3)
-                print("\n""Final score""\n""{} : {}""\n""{} : {}""\n""Tied games: {}".format(ai1_name, ai1_score,
-                ai2_name, ai2_score, tied_games))
+                print("\nSimulating battle...")
+                time.sleep(1.5)
+                print("\nFinal score\n{} : {}\n{} : {}\nTied games: {}".format(ai1_name, ai1_score, ai2_name,
+                                                                               ai2_score, tied_games))
                 if ai1_score == ai2_score:
                     print("What are the chances? It's a tie")
                     break
@@ -56,25 +56,28 @@ while True:
         break
 
     elif choice == "play":
-        player = input("Enter rock, paper, scissors, lizard, spock or quit to end the game: ").lower().strip()
+        player = input("\nEnter rock, paper, scissors, lizard, spock or quit to end the game: ").lower().strip()
         while player != "quit":
             computer = random.choice(moves)
             if player == computer:
-                print("\n""It's a tie")
+                print("\nIt's a tie")
                 tied_games += 1
             elif (player, computer) in results:
-                print("\n""You chose {}, computer chose {},""\n""You win".format(player, computer))
                 player_score += 1
+                print("\nYou chose {}, computer chose {},\nYou win\nYou : {}\nComputer : {}".format(player, computer,
+                      player_score, computer_score))
             elif (computer, player) in results:
-                print("\n""You chose {}, computer chose {},""\n""Computer wins".format(player, computer))
                 computer_score += 1
+                print("\nYou chose {}, computer chose {},\nComputer wins\nYou : {}\nComputer : {}".format(player,
+                      computer, player_score, computer_score))
             else:
-                print("\n""You entered '{}', please enter valid options only""\n".format(player))
+                print("\nYou entered '{}', please enter valid options only\n".format(player))
 
             player = input("Enter rock, paper, scissors, lizard, spock or quit to end the game: ").lower().strip()
 
-        print("\n""FINAL SCORE : ""\n""YOU : {}""\n""COMPUTER : {}""\n""TIED GAMES : {}".format(player_score,
-                                                                                        computer_score, tied_games))
+        print("\nRESULTS : \n""YOU : {}\nCOMPUTER : {}\nTIED GAMES : {}".format(player_score, computer_score,
+                                                                                tied_games))
+
         if player_score == computer_score:
             print("The game ended in a tie")
         elif player_score > computer_score:
